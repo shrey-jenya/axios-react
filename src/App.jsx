@@ -3,44 +3,28 @@ import './App.css'
 import axios from 'axios'
 const App = () => {
   const [items, setItems] = useState([])
-  const [err, setErr] = useState('')
+  const [isError, setIsError] = useState('')
   const apiData = async () => {
     try {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
+      const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/`)
       setItems(res.data)
-    } catch (err) {
-      setErr(err.message)
+      console.log(res.data);
+    } catch (isError) {
+      setIsError(isError.message)
     }
   }
-  useEffect(() => {
-    apiData()
-  }, [])
+useEffect(()=>{
+apiData()
+},[])
   return (
     <>
-      <h1>Hello Axios...</h1>
-      {err !== 0 && <h2>{err.message}</h2>}
-      <div className='table-container'>
-        <table>
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Title</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          
-          <tbody>
-          {items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.title.slice(0,25)}</td>
-                <td>{item.body.slice(0,139)}</td>
-              </tr>
-            ))}
-            </tbody>
-          
-        </table>
-      </div>
+      <h1>Placeholder API</h1>
+      {isError && <h1>ERROR:{isError}</h1> }
+        { 
+          items.map((item)=>(
+          <p key={item.id}> {item.title}</p>
+          ))
+        }
     </>
   )
 }
