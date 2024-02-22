@@ -3,13 +3,17 @@ import './App.css'
 import axios from 'axios'
 const App = () => {
   const [items, setItems] = useState([])
+  const [isLoading,setIsLoading]= useState(true)
   const [err, setErr] = useState('')
   const apiData = async () => {
     try {
       const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
       setItems(res.data)
+      setIsLoading(false)
     } catch (err) {
       setErr(err.message)
+      setIsLoading(false)
+
     }
   }
   useEffect(() => {
@@ -29,6 +33,7 @@ const App = () => {
             </tr>
           </thead>
           
+            {isLoading ? <h1>Loading...</h1> : 
           <tbody>
           {items.map((item) => (
               <tr key={item.id}>
@@ -38,9 +43,9 @@ const App = () => {
               </tr>
             ))}
             </tbody>
-          
+          }
         </table>
-      </div>
+          </div>
     </>
   )
 }
