@@ -17,7 +17,7 @@ const App = () => {
   }, [])
   return (
     <>
-      <h1>Hello Axios...</h1>
+      <h1>JsonPlaceholder API - Posts</h1>
       {err !== 0 && <h2>{err.message}</h2>}
       <div className='table-container'>
         <table>
