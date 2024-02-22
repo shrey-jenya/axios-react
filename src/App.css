@@ -24,3 +24,7 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
+.meals-img{
+  width: 300px;
+  border-radius: 13px;
+}
