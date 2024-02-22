@@ -24,3 +24,8 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
+.parent {
+width: 400px;
+display: flex;
+flex-direction: column;
+  }
