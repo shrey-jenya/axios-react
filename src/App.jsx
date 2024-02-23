@@ -1,52 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import './App.css'
 import axios from 'axios'
-const App = () => {
-  const [items, setItems] = useState([])
-  const [isLoading,setIsLoading]= useState(true)
-  const [err, setErr] = useState('')
-  const apiData = async () => {
-    try {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setItems(res.data)
-      setIsLoading(false)
-    } catch (err) {
-      setErr(err.message)
-      setIsLoading(false)
+import React, { useEffect, useState } from 'react'
 
+const App = () => {
+  const [advice, setAdvice] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error,setError] = useState('')
+
+  const adviceApi = async () => {
+    try {
+      const res = await axios.get(`https://api.adviceslip.com/advice`)
+      const advice  = res.data.slip.advice 
+      setAdvice([advice])
+      setLoading(false)
+      setError('')
+      console.log([advice])
+    } catch (error) {
+      console.error(error.message);
+      setError(error.message)
+      setLoading(false)
     }
   }
   useEffect(() => {
-    apiData()
+    adviceApi()
   }, [])
+  const nextHandler  = ()=>{
+    adviceApi()
+    setLoading(true)
+  }
   return (
-    <>
-      <h1>JsonPlaceholder API - Posts</h1>
-      {err !== 0 && <h2>{err.message}</h2>}
-      <div className='table-container'>
-        <table>
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Title</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          
-            {isLoading ? <h1>Loading...</h1> : 
-          <tbody>
-          {items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.title.slice(0,25)}</td>
-                <td>{item.body.slice(0,139)}</td>
-              </tr>
-            ))}
-            </tbody>
-          }
-        </table>
-          </div>
-    </>
+    <div>
+      {error &&  <h1>{error}</h1> }
+      {
+        loading ? <h1>Loading...</h1> : (
+        <>
+          <h1>{advice[0]}</h1>
+         <button onClick={nextHandler}>Next Advice</button>
+        </>
+          )
+      }
+    </div>
   )
 }
+
 export default App
