@@ -27,9 +27,16 @@ th {
 .meals-img{
   width: 300px;
   border-radius: 13px;
+  cursor: pointer;
 }
 input{
   padding: 12px;
   border-radius: 12px;
   margin-bottom: 12px;
+}
+select{
+    margin-left: 12px;
+    border-radius: 4px;
+    padding: 12px;
+    cursor: pointer;
 }
